@@ -15,6 +15,17 @@ feature 'Viewing links' do
                 tags: [Tag.first_or_create(name: 'bubbles')])
   end
 
+  scenario 'visiting the home page automatically takes me to my links' do
+    visit '/'
+    expect(current_path).to eq '/links'
+  end
+
+  scenario 'can click to add new links and to sign up' do
+    visit '/'
+    find_button 'Create new link'
+    find_button 'Sign up'
+  end
+
   scenario 'I can see existing links on the links page' do
     Link.create(url: 'http://www.makersacademy.com', title: 'Makers Academy')
     visit '/links'
