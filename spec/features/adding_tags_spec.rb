@@ -20,7 +20,7 @@ feature 'Adding tags' do
     expect(link.tags.map(&:name)).to include('education', 'ruby')
   end
 
-  scenario 'isn\'t added if nothing is given' do
+  scenario 'isn\'t added if no tag is given' do
     visit '/links/new'
     fill_in 'url',   with: 'http://www.makersacademy.com/'
     fill_in 'title', with: 'Makers Academy'
