@@ -43,7 +43,7 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/users' do
-    @user = User.new(  email: params[:email],
+    @user = User.new( email: params[:email],
                       password: params[:password],
                       password_confirmation: params[:password_confirmation])
     if @user.save
@@ -57,7 +57,7 @@ class BookmarkManager < Sinatra::Base
 
   helpers do
     def current_user
-      @current_user = User.get(session[:user_id])
+      @current_user ||= User.get(session[:user_id])
     end
   end
 
