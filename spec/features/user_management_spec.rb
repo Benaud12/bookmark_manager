@@ -23,4 +23,9 @@ feature 'User sign up' do
     click_button 'Sign up'
   end
 
+  scenario 'user doesn\'t provide an email address' do
+    expect {sign_up(email: '')}.not_to change(User, :count)
+
+  end
+
 end
