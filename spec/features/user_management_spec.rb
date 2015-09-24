@@ -78,4 +78,22 @@ feature 'user can reset password' do
     expect(user.password_token).not_to be_nil
     expect(page).to have_content 'Check your email'
   end
+
+  scenario 'resetting password' do
+   user.password_token = 'token'
+   user.save
+   visit "/users/password_reset/#{user.password_token}"
+   expect(page.status_code).to eq 200
+   expect(page).to have_content 'Enter a new password'
+  end
+
 end
+
+
+
+
+
+
+
+
+

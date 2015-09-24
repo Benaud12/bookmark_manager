@@ -92,6 +92,20 @@ class BookmarkManager < Sinatra::Base
     erb :'/users/check_your_email'
   end
 
+  get '/users/password_reset/:token' do
+    @user = User.first(password_token: params[:token])
+    session[:user_id] = @user.id
+    erb :'/users/set_password'
+  end
+
+# A LITTLE BIT HACKY!!!
+  post '/foo' do
+    user = User.first(id: session[:user_id])
+    user.update(password: params[:password])
+    user.save
+    redirect '/'
+  end
+
 
   helpers do
     def current_user
