@@ -8,9 +8,10 @@ class User
   attr_accessor :password_confirmation
 
   property :id, Serial
-  property :email, String, required: true, unique: true,
+  property :email, String, required: true, unique: true, format: :email_address,
     messages: { is_unique:  "Email taken.",
-                presence:   "Email required."}
+                presence:   "Email required.",
+                format:     "Dude, that's not an email!"}
   property :password_digest, Text
 
   def password=(password)
