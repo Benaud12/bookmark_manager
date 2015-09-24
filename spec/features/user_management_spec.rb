@@ -50,3 +50,24 @@ feature 'User log in' do
   end
 
 end
+
+
+
+feature 'User log out' do
+
+  let(:user){build(:user)}
+
+  before(:each) do
+    sign_up(user)
+    sign_in(user)
+  end
+
+  scenario 'correct credentials' do
+    click_button 'Sign out'
+    expect(page).to have_content "Goodbye!"
+    expect(page).not_to have_content "Welcome, foo@bar.com"
+  end
+
+end
+
+
