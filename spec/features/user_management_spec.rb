@@ -51,8 +51,6 @@ feature 'User log in' do
 
 end
 
-
-
 feature 'User log out' do
 
   let(:user){build(:user)}
@@ -70,4 +68,14 @@ feature 'User log out' do
 
 end
 
+feature 'user can reset password' do
+  let(:user){create(:user)}
 
+  scenario 'request a password reset' do
+    visit '/password_reset'
+    fill_in 'email', with: user.email
+    click_button 'Reset password'
+    expect(user.password_token).not_to be_nil
+    expect(page).to have_content 'Check your email'
+  end
+end

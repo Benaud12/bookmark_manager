@@ -1,7 +1,10 @@
 require_relative '../data_mapper_setup'
+require 'securerandom'
+require 'sinatra/partial'
 
 class BookmarkManager < Sinatra::Base
-
+  register Sinatra::Partial
+  set :partial_template_engine, :erb
   use Rack::MethodOverride
 
   enable :sessions
@@ -76,6 +79,17 @@ class BookmarkManager < Sinatra::Base
     session[:user_id] = nil
     flash.next[:notice] = "Goodbye!"
     redirect '/links'
+  end
+
+  get '/password_reset' do
+    erb :'/users/password_reset'
+  end
+
+  post '/password_reset' do
+    user = User.first(email: params[:email])
+    user.password_token = SecureRandom.urlsafe_base64(32)
+    user.save
+    erb :'/users/check_your_email'
   end
 
 
