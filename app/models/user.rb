@@ -8,7 +8,9 @@ class User
   attr_accessor :password_confirmation
 
   property :id, Serial
-  property :email, String, required: true, unique: true  
+  property :email, String, required: true, unique: true,
+    messages: { is_unique:  "Email taken.",
+                presence:   "Email required."}
   property :password_digest, Text
 
   def password=(password)
@@ -17,6 +19,6 @@ class User
   end
 
 #  validates_presence_of :email
-  validates_confirmation_of :password
+  validates_confirmation_of :password, message: "Password and confirmation password do not match."
 
 end

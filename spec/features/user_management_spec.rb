@@ -11,7 +11,7 @@ feature 'User sign up' do
     user = build(:user, password_confirmation: 'wrong')
     expect { sign_up(user) }.not_to change(User, :count)
     expect(current_path).to eq('/users')
-    expect(page).to have_content 'Password and confirmation password do not match'
+    expect(page).to have_content 'Password and confirmation password do not match.'
   end
 
   def sign_up(user)
@@ -26,7 +26,8 @@ feature 'User sign up' do
   scenario 'user doesn\'t provide an email address' do
     user = build(:user, email: '')
     expect {sign_up(user)}.not_to change(User, :count)
-
+    expect(current_path).to eq('/users')
+    expect(page).to have_content 'Email required.'
   end
 
   scenario 'email is already in database' do
