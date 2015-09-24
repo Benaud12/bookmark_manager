@@ -29,4 +29,12 @@ feature 'User sign up' do
 
   end
 
+  scenario 'email is already in database' do
+    user = build(:user)
+    sign_up(user)
+    expect{sign_up(user)}.not_to change(User, :count)
+    expect(page).to have_content('Email taken.')
+  end
+
+
 end
